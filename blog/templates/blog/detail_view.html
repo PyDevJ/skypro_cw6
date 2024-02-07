@@ -1,0 +1,39 @@
+{% extends 'message/base.html' %}
+{% load mediapath %}
+{% block title %}
+    <div class="b-example-divider"></div>
+<div class="container">
+    <header>
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal text-body-emphasis">Блог</h1>
+        </div>
+    </header>
+{% endblock %}
+{% block body %}
+    <div class="row text-start">
+        <div class="album py-5 bg-body-tertiary">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <p class="card-text">дата создания: {{ object.date }}</p>
+                            <img src="{{ object.photo|mediapath }}" width="50%" height="200">
+                            <div class="card-body">
+                                <p class="card-text">{{ object.title }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <div class="card-body">
+                                            <p class="card-text">{{ object.body|slice:':200' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                Просмотры: {{ object.count_views }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

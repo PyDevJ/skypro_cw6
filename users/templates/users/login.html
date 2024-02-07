@@ -1,0 +1,93 @@
+{% extends 'message/base.html' %}
+{% block title %}
+    <div class="b-example-divider"></div>
+
+    <div class="container">
+    <header>
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal text-body-emphasis">Вход</h1>
+            <p class="fs-5 text-body-secondary">Введите почту и пароль</p>
+        </div>
+    </header>
+{% endblock %}
+{% block body %}
+
+    <style>
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+        }
+
+
+        .form-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f8f8f8;
+            border-radius: 8px;
+        }
+
+
+        .form-error {
+            color: red;
+            font-size: 0.9em;
+            height: 30px;
+        }
+
+
+        .form-label {
+            display: block; /* Метки блочного типа для лучшего контроля отступов */
+            margin-bottom: 0.5em;
+        }
+
+
+        input[type="text"],
+        input[type="password"],
+        .button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Стилизация кнопки */
+        button {
+            background-color: #343a40;
+            color: white;
+            padding: 0.5em 1em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background-color: #495057; /* Потемнее при наведении */
+        }
+
+    </style>
+
+    <div class="form-container">
+        <form class="form-box" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-error">{{ form.non_field_errors }}</div>
+
+            {% for f in form %}
+                <div class="fieldWrapper">
+                    <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>
+                    {{ f }}
+                    <div class="form-error">{{ f.errors }}</div>
+                </div>
+            {% endfor %}
+
+            <button type="submit">Войти</button>
+        </form>
+    </div>
+
+{% endblock %}

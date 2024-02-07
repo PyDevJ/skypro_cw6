@@ -1,0 +1,67 @@
+<!doctype html>
+{% load static %}
+{% load mediapath %}
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Сервис управления рассылками</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+<div >
+      <h1 class="display-6 fw-normal text-body-emphasis text-center">Сервис управления рассылками</h1>
+      <h6 class="text-center">
+            {% if user.is_authenticated %}
+        <strong>Пользователь: {{ user.first_name }}\({{ user.email }})</strong>
+        {% endif %}
+          </h6>
+</div>
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <nav class="ms-5">
+        {% if user.is_authenticated %}
+        <a class="p-1 btn btn-outline-warning" href="/">Главная</a>
+        <a class="p-1 btn btn-outline-primary" href="{% url 'message:client_list' %}">Клиенты</a>
+        <a class="p-1 btn btn-outline-primary" href="{% url 'message:mailings_list' %}">Рассылки</a>
+        <a class="p-1 btn btn-outline-primary" href="{% url 'message:message_list' %}">Сообщения</a>
+        <a class="p-1 btn btn-outline-info" href="{% url 'users:template' %}">Кабинет</a>
+        <a class="p-1 btn btn-outline-danger" href="{% url 'users:logout' %}">Выйти</a>
+        {% else %}
+        <a class="p-1 btn btn-outline-primary" href="/">Главная</a>
+        <a class="p-1 btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
+        <a class="p-1 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
+        {% endif %}
+        {% if user.is_superuser or user.is_staff %}
+        <a class="p-1 btn btn-outline-info" href=#>Пользователи</a>
+        {% endif %}
+        <a class="p-1 btn btn-outline-primary" href="{% url 'message:contact' %}">Контакты</a>
+        {% if user.is_superuser %}
+        <a class="p-1 btn btn-outline-info" href="/admin">Админка</a>
+        {% endif %}
+    </nav>
+</div>
+<div >
+    <h2 class="display-6 text-center">{{ title|title }}</h2>
+</div>
+<div>
+    {% block title %}
+    {% endblock %}
+
+    {% block body %}
+    {% endblock %}
+</div>
+<div>
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+                курсовая на Django фреймворк
+                <small class="d-block mb-3 text-muted">&copy;{% now "Y" %}</small>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+</body>
+</html>
