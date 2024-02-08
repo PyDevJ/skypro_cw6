@@ -1,13 +1,9 @@
-from datetime import datetime
 from random import sample
 
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.mail import send_mail
 from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.views.generic import CreateView, View, UpdateView, ListView, DeleteView
 
 from blog.models import Blog
@@ -85,6 +81,11 @@ class ClientListView(LoginRequiredMixin, ListView):
     model = Client
     template_name = 'message/client_list.html'
 
+    def get_queryset(self, **kwargs):
+        if self.request.user.groups.filter().exists():
+            return Client.objects.all()
+        return Client.objects.filter(user=self.request.user)
+
 
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
@@ -109,23 +110,6 @@ class MailingsCreateView(LoginRequiredMixin, CreateView):
     template_name = 'message/mailings_create.html'
     fields = ('message', 'client', 'state', 'periodicity', 'date',)
     success_url = reverse_lazy('message:mailings_list')
-
-    # def form_valid(self, form):
-    #     a = timezone.now()
-    #
-    #     response = super().form_valid(form)
-    #     if a > form.instance.date:
-    #         for client in form.instance.client.all():
-    #             send_mail(
-    #                 subject=f'{form.instance.message.name}',
-    #                 message=f'{form.instance.message.body}',
-    #                 from_email=settings.EMAIL_HOST_USER,
-    #                 recipient_list=[client.email]
-    #             )
-    #
-    #         form.instance.state = 'finish'
-    #     form.instance.save()
-    #     return response
 
 
 class MailingsUpdateView(LoginRequiredMixin, UpdateView):

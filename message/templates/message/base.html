@@ -33,11 +33,8 @@
         <a class="p-1 btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
         <a class="p-1 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
         {% endif %}
-        {% if user.is_superuser or user.is_staff %}
-        <a class="p-1 btn btn-outline-info" href=#>Пользователи</a>
-        {% endif %}
         <a class="p-1 btn btn-outline-primary" href="{% url 'message:contact' %}">Контакты</a>
-        {% if user.is_superuser %}
+        {% if user.is_superuser or user.is_staff %}
         <a class="p-1 btn btn-outline-info" href="/admin">Админка</a>
         {% endif %}
     </nav>
