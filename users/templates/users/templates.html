@@ -1,0 +1,27 @@
+{% extends 'message/base.html' %}
+{% load mediapath %}
+{% block title %}
+<div class="b-example-divider"></div>
+<header>
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal text-body-emphasis">Личный кабинет</h1>
+    </div>
+</header>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div>
+        <a class="w-40 btn btn-lg btn-success" href="{% url 'users:profile' %}">Редактитровать профиль</a>
+    </div>
+    {% if user.avatar %}
+    <img src="{% mediapath user.avatar %}" width="20%" height="240" class="bd-placeholder-img">
+    {% else %}
+    <img src="{% mediapath 'user/face.jpeg' %}" width="20%" height="240" class="bd-placeholder-img">
+    {% endif %}
+    <h3 class="display-9 fw-normal text-body-emphasis">Имя: {{ user.first_name }}</h3>
+    <h3 class="display-9 fw-normal text-body-emphasis">Фамилия: {{ user.last_name }}</h3>
+    <h3 class="display-9 fw-normal text-body-emphasis">Отчество: {{ user.surname }}</h3>
+    <a class="p-2 btn btn-outline-danger" href="{% url 'users:new_password' %}">Сгенирировать пароль</a>
+    <a class="p-2 btn btn-outline-danger" href="{% url 'users:user_password' %}">Установить свой пароль</a>
+</div>
+{% endblock %}

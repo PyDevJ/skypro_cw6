@@ -1,0 +1,104 @@
+{% extends 'message/base.html' %}
+{% block title %}
+
+    <style>
+        .container {
+            max-width: 90%;
+            margin: auto;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .contact-form {
+            flex: 0 0 30%;
+            order: 2;
+            margin-left: 50px;
+            margin-right: 1em;
+        }
+
+        .map {
+            flex: 1;
+            order: 1;
+        }
+
+        .contact-form .card {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 4px;
+        }
+
+        .map iframe {
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            height: 380px;
+        }
+
+
+        .map {
+            padding: 6px;
+            background-color: #f5f5f5;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .container {
+            padding: 20px;
+            background-color: #fff;
+        }
+    </style>
+
+<div class="container">
+    <header>
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal text-body-emphasis">Наши Контакты и Ваши предложения</h1>
+        </div>
+    </header>
+
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <h3>Наш адрес: Мы в центре вселенной</h3>
+        <div class="flex-container">
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d39053.517061637904!2d-77.8623379435177!3d24.74473089200917!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1703165834103!5m2!1sru!2sru"
+                        width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="contact-form">
+                <div class="card">
+                    <div class="card-header py-1">
+                        <h4>Ваши контактные данные</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="" class="form-floating">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name">Имя</label>
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone">Телефон</label>
+                                <input type="text" name="phone" class="form-control" id="phone"
+                                       placeholder="Контактный телефон" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message">Сообщение</label>
+                                <textarea name="message" class="form-control" id="message"
+                                          placeholder="Введите сообщение или ваши предложения" required></textarea>
+                            </div>
+                            <input type="submit" class="btn btn-lg btn-block btn-outline-primary" value="Отправить">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
