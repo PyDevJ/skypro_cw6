@@ -1,0 +1,66 @@
+{% extends 'message/base.html' %}
+{% load static %}
+{% load mediapath %}
+
+{% block body %}
+<header>
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal text-body-emphasis">Главная страница</h1>
+    </div>
+</header>
+<main>
+    <div class="row row-cols-1 row-cols-md-3 mb-6 text-center">
+        <div class="col-md-12">
+            <div class="card mb-4 rounded-6 shadow-sm">
+                <div class="card-header py-1">
+                    <h4 class="my-0 fw-normal">Статистика рассылок</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-1 mb-3">
+                        <li>Количество рассылок всего: {{ count }}</li>
+                        <li>Количество активных рассылок: {{ active_newsletters }}</li>
+                        <li>Количество уникальных клиентов для рассылок: {{ client }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card mb-4 rounded-6 shadow-sm">
+                <div class="card-header py-1">
+                    <h4 class="my-0 fw-normal">Три случайные статьи из блога</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row mb-2">
+            {% for object in random_blogs %}
+            <div class="col-md-4 mb-4">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
+                    <div class="col-auto d-none d-lg-block">
+                        {% if object.photo %}
+                        <img src="{{ object.photo.url }}" alt="Blog Image" width="200" height="250">
+                        {% else %}
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="" role="img"
+                             aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#55595c"/>
+                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                        </svg>
+                        {% endif %}
+                    </div>
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h3 class="mb-0">{{ object.title }}</h3>
+                        <div class="mb-1 text-body-secondary">{{ object.date }}</div>
+                        <p class="card-text mb-auto">{{ object.body|slice:":150" }}</p>
+                        Просмотры: {{ object.count_views }}
+                    </div>
+                    <div>
+                        <a type="button" class="btn btn-sm btn-outline-secondary"
+                           href="{% url 'blog:blog_detail' object.pk %}">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

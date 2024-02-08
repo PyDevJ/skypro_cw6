@@ -1,0 +1,38 @@
+{% extends 'message/base.html' %}
+{% block title %}
+    <div class="b-example-divider"></div>
+
+    <div class="container">
+    <header>
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal text-body-emphasis">Верификация</h1>
+            <p class="fs-5 text-body-secondary">Введите код, который пришел на почту</p>
+        </div>
+    </header>
+{% endblock %}
+{% block body %}
+    <div class="container py-5">
+        <div class="row min-vh-50 justify-content-center align-items-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4 class="card-title text-center mb-4 mt-1">Введите ваш код</h4>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input name="code" class="form-control" placeholder="Код подтверждения" type="text"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-secondary btn-block m-2">Подтвердить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
