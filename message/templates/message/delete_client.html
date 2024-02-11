@@ -1,16 +1,16 @@
 {% extends 'message/base.html' %}
 {% block title %}
-    <div class="b-example-divider"></div>
+<div class="b-example-divider"></div>
 
-    <div class="container">
+<div class="container">
     <header>
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
             <h1 class="display-4 fw-normal text-body-emphasis">Удаление клиента</h1>
         </div>
     </header>
-{% endblock %}
-{% block body %}
 
+    {% endblock %}
+    {% block body %}
 
     <div class="form-container">
         <form method='post'>
@@ -19,8 +19,8 @@
             {{ form.as_p }}
             <h3>Вы действительно хотите удалить клиента?</h3>
             <button type="submit" class="btn btn-danger">Да</button>
-            <button type="button" href="{% url 'message:client_list' %}" class="btn btn-success">Нет</button>
-
-
+            <a href="{% url 'message:client_list' %}" class="btn btn-success">Нет</a>
         </form>
+    </div>
+</div>
 {% endblock %}
