@@ -1,54 +1,49 @@
 {% extends 'message/base.html' %}
 {% block title %}
-    <div class="b-example-divider"></div>
-
-    <div class="container">
+<div class="b-example-divider"></div>
+<div class="container">
     <header>
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
             <h1 class="display-4 fw-normal text-body-emphasis">Список рассылок</h1>
         </div>
     </header>
-{% endblock %}
-{% block body %}
-
+    {% endblock %}
+    {% block body %}
     <div class="row text-start">
-
         <div class="album py-5 bg-body-tertiary">
-
             <div class="container">
-
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     {% for object in object_list %}
-                        <div class="col">
-
-                            <div class="card shadow-sm">
-                                <div class="card-body">
-                                    <p class="card-text">{{ object.state }} {{ object.periodicity }} {{ object.client }} </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <div class="card-body">
-                                                <p class="card-text">{{ object.message }} </p>
-                                                <p class="card-text">Дата: {{ object.date }} </p>
-                                                <p class="card-text">Статус: {{ object.state }} </p>
-
-                                                <a type="button" class="btn btn-sm btn-outline-secondary"
-                                                   href="{% url 'message:update_mailings' object.pk %}">Редактировать</a>
-                                                <a type="button" class="btn btn-sm btn-outline-danger"
-                                                   href="{% url 'message:delete_mailings' object.pk %}">Удалить</a>
-
-                                            </div>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <p class="card-text">клиенты:
+                                    {% for client in object.client.all %}
+                                    {{client}},
+                                    {% endfor %}
+                                    <br>периодичность: {{ object.periodicity }} <br>создатель: {{ object.user }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <div class="card-body">
+                                            <p class="card-text">Тема: {{ object.message }} </p>
+                                            <p class="card-text">Дата: {{ object.date }} </p>
+                                            <p class="card-text">Статус: {{ object.state }} </p>
+                                            <a type="button" class="btn btn-sm btn-outline-secondary"
+                                               href="{% url 'message:update_mailings' object.pk %}">Редактировать</a>
+                                            <a type="button" class="btn btn-sm btn-outline-danger"
+                                               href="{% url 'message:delete_mailings' object.pk %}">Удалить</a>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
+                    </div>
                     {% endfor %}
                 </div>
-                <a class="m-2 p-2 btn btn-outline-primary" href="{% url 'message:mailings_create' %}">Добавление
-                    рассылки</a>
+                <a class="m-2 p-2 btn btn-outline-primary" href="{% url 'message:mailings_create' %}">Добавить
+                    рассылку</a>
             </div>
         </div>
-
+    </div>
+</div>
 {% endblock %}

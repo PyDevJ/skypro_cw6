@@ -1,26 +1,26 @@
 {% extends 'message/base.html' %}
 {% block title %}
-    <div class="b-example-divider"></div>
+<div class="b-example-divider"></div>
 
-    <div class="container">
+<div class="container">
     <header>
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
             <h1 class="display-4 fw-normal text-body-emphasis">Удаление рассылки</h1>
         </div>
     </header>
-{% endblock %}
-{% block body %}
 
+    {% endblock %}
+    {% block body %}
 
     <div class="form-container">
-        <form method='post'>
+        <form enctype="multipart/form-data" class="needs-validation" method="post">
             {% csrf_token %}
             <div class="form-error">{{ form.non_field_errors }}</div>
             {{ form.as_p }}
-            <h3>Вы действительно хотите удалить клиента?</h3>
+            <h3>Вы действительно хотите удалить рассылку<p class="text-danger">'{{mailings.message}}'?</p></h3>
             <button type="submit" class="btn btn-danger">Да</button>
-            <button type="button" href="{% url 'message:client_list' %}" class="btn btn-success">Нет</button>
-
-
+            <a href="{% url 'message:mailings_list' %}" class="btn btn-success">Нет</a>
         </form>
+    </div>
+</div>
 {% endblock %}

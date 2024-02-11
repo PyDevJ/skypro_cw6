@@ -1,11 +1,16 @@
 {% extends 'message/base.html' %}
 {% block title %}
     <div class="b-example-divider"></div>
-
     <div class="container">
     <header>
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-            <h1 class="display-4 fw-normal text-body-emphasis">Редактирование клиента</h1>
+            <h1 class="display-4 fw-normal text-body-emphasis">
+                {% if object %}
+                Редактировать рассылку
+                {% else %}
+                Добавить рассылку
+                {% endif %}
+            </h1>
         </div>
     </header>
 {% endblock %}
@@ -97,14 +102,13 @@
         }
     </style>
 
-
     <div class="form-container">
         <form method='post' class="registration-form">
             {% csrf_token %}
             <div class="form-error">{{ form.non_field_errors }}</div>
             {{ form.as_p }}
             <button type="submit" class="btn-register">Сохранить</button>
-
-
         </form>
+    </div>
+    </div>
 {% endblock %}
